@@ -2,13 +2,16 @@
 #include <iostream>
 
 void UiConsole::PlotEdge(const Edge& e) {
-    auto [from,to] = e;
-    auto [x1, y1] = from;
-    auto [x2, y2] = to;
+    Vertex from,to;
+    std::tie(from,to) = e;
+    int x1,y1,x2,y2;
+    std::tie(x1,y1) = from;
+    std::tie(x2,y2) = to;
     std::cout << "Edge (" << x1 << ", " << y1 << ")  <-> (" << x2 << ", " << y2 << ")" << std::endl;
 }
 
 void UiConsole::PlotVertex(const Vertex& v){
-    auto [x, y] = v;
-    std::cout << "Vertex (" << x << ", " << y << ")" << std::endl;
+  int x,y;
+  std::tie(x,y) = v;
+  std::cout << "Vertex (" << x << ", " << y << ")" << std::endl;
 }

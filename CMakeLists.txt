@@ -1,12 +1,11 @@
- cmake_minimum_required(VERSION 3.8)
- project(MD5Encrypter)
+cmake_minimum_required(VERSION 3.0)
+project(algorithms)
 
- add_definitions("-std=c++11")
+SET(CMAKE_CXX_FLAGS "-std=c++17")
+find_package( OpenCV REQUIRED )
 
- include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
- conan_basic_setup()
-
- add_executable(app src/main.cpp src/ui_console.cpp)
- target_compile_features(app PUBLIC cxx_std_17)
- target_link_libraries(app ${CONAN_LIBS})
+add_executable(app src/main.cpp src/ui_console.cpp ./src/ui_opencv.cpp)
+target_link_libraries(app
+  ${OpenCV_LIBS}
+)
 
