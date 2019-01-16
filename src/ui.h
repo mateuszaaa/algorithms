@@ -3,7 +3,7 @@
 
 class UI{
   public:
-  virtual void PlotEdge(const Edge&) = 0;
-  virtual void PlotVertex(const Vertex&) = 0;
+  virtual void Plot(const Edge&) = 0;
+  virtual void Plot(const Vertex&) = 0;
 };
 

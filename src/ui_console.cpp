@@ -1,7 +1,7 @@
 #include "ui_console.h"
 #include <iostream>
 
-void UiConsole::PlotEdge(const Edge& e) {
+void UiConsole::Plot(const Edge& e) {
     Vertex from,to;
     std::tie(from,to) = e;
     int x1,y1,x2,y2;
@@ -10,7 +10,7 @@ void UiConsole::PlotEdge(const Edge& e) {
     std::cout << "Edge (" << x1 << ", " << y1 << ")  <-> (" << x2 << ", " << y2 << ")" << std::endl;
 }
 
-void UiConsole::PlotVertex(const Vertex& v){
+void UiConsole::Plot(const Vertex& v){
   int x,y;
   std::tie(x,y) = v;
   std::cout << "Vertex (" << x << ", " << y << ")" << std::endl;

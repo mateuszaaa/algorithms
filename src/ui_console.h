@@ -2,6 +2,6 @@
 
 class UiConsole: public UI{
   public:
-  void PlotEdge(const Edge& e) override;
-  void PlotVertex(const Vertex&)  override;
+  void Plot(const Edge& e) override;
+  void Plot(const Vertex&)  override;
 };
