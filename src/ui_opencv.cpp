@@ -1,28 +1,47 @@
 #include "ui_opencv.h"
 #include <opencv2/highgui/highgui.hpp>
 
-UIOpenCV::UIOpenCV(): mat(500,500, CV_8UC3, {255,255,255}){
-  Repaint();
+
+namespace{
+  cv::Scalar ToCvColor(Color c){
+    switch(c){
+      case Color::Blue: return {255, 0, 0};
+      case Color::Red: return {0, 0, 255};
+      case Color::Green: return {0, 255, 0};
+      default:{
+        throw std::runtime_error("cannot convert color to cv::Scalar");
+      }
+    }
+  }
+
+  template <typename T>
+  constexpr auto ToUnderlying(T e) noexcept
+  {
+      return static_cast<std::underlying_type_t<T>>(e);
+  }
+
 }
 
-void UIOpenCV::Plot(const Edge& e){
+UIOpenCV::UIOpenCV(): mat(500,500, CV_8UC3, {255,255,255}){
+  Update();
+}
+
+void UIOpenCV::Plot(Edge e, Color c, Thickness t){
   Vertex from,to;
   std::tie(from,to) = e;
   int x1,y1,x2,y2;
   std::tie(x1,y1) = from;
   std::tie(x2,y2) = to;
-  cv::line(mat, {x1,y1}, {x2,y2}, {0,255,0} ,1);
-  Repaint();
+  cv::line(mat, {x1,y1}, {x2,y2}, ToCvColor(c), ToUnderlying(t));
   
 }
 
-void UIOpenCV::Plot(const Vertex& v){
+void UIOpenCV::Plot(Vertex v, Color c, Thickness t){
   int x,y;
   std::tie(x,y) = v;
-  cv::circle(mat, {x,y}, 5, {255,0,0} ,2);
-  Repaint();
+  cv::circle(mat, {x,y}, 5, ToCvColor(c) ,ToUnderlying(t));
 }
 
-void UIOpenCV::Repaint(){
+void UIOpenCV::Update(){
   cv::imshow("graph", mat);
 }
