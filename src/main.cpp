@@ -67,21 +67,16 @@ int main(int argc, const char **argv){
   //
   auto ui = std::make_unique<UIOpenCV>();
   auto vertexes = GenerateVertexes(20);
-  auto minimal_connections = GenerateMinimalTree(vertexes);
-  auto all_connections = GenerateConnections(vertexes, 0.1);
+  auto connections = GenerateMinimalTree(vertexes);
+  auto filling_connections = GenerateConnections(vertexes, 0.1);
+  connections.insert(std::end(connections), std::begin(filling_connections), std::end(filling_connections));
+  std::set<Connection> connections_set(std::begin(connections), std::end(connections));
 
-  std::vector<Edge> minimal_edges;
-  std::vector<Edge> all_edges;
+  std::vector<Edge> edges;
+  std::transform(std::begin(connections_set), std::end(connections_set), std::back_inserter(edges), [&vertexes](auto c){ return toEdge(vertexes,c); });
 
-  std::transform(std::begin(minimal_connections), std::end(minimal_connections), std::back_inserter(minimal_edges), [&vertexes](auto c){ return toEdge(vertexes,c); });
-  std::transform(std::begin(all_connections), std::end(all_connections), std::back_inserter(all_edges), [&vertexes](auto c){ return toEdge(vertexes,c); });
-
-  for(auto e: all_edges){
-    ui->Plot(e, Color::Blue, Thickness::Slim);
-  }
-
-  for(auto e: minimal_edges){
-    ui->Plot(e, Color::Red, Thickness::Normal);
+  for(auto e: edges){
+    ui->Plot(e, Color::Green, Thickness::Slim);
   }
 
   for(auto v:vertexes){
