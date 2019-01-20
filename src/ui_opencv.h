@@ -18,13 +18,14 @@ enum class Thickness: std::uint16_t{
 
 class UIOpenCV{
   public:
-  UIOpenCV();
+  UIOpenCV(const std::string& window_name);
   void Plot(Edge, Color c=Color::Green, Thickness t=Thickness::Medium);
   void Plot(Vertex, Color c=Color::Green, Thickness t=Thickness::Medium);
   void Plot(const Graph &);
   void Update();
   private:
-  cv::Mat mat;
+  std::string name_;
+  cv::Mat mat_;
 
   void Plot(const Edges&, Color c=Color::Green, Thickness t=Thickness::Medium);
   void Plot(const Vertexes&, Color c=Color::Green, Thickness t=Thickness::Medium);

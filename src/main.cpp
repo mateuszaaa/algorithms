@@ -56,7 +56,7 @@ std::vector<Connection> GenerateConnections(const std::vector<Vertex> vertexes, 
 
 
 int main(int argc, const char **argv){
-  auto ui = std::make_unique<UIOpenCV>();
+  auto ui = std::make_unique<UIOpenCV>("origin");
   auto vertexes = GenerateVertexes(20);
   auto connections = GenerateMinimalTree(vertexes);
   auto filling_connections = GenerateConnections(vertexes, 0.1);
